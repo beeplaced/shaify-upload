@@ -17,7 +17,7 @@ $ npm i shaify-upload
 
 ## Features
 
-  * Upload files based on [multer](https://www.npmjs.com/package/multer) 
+  * Upload files based on [multer](https://www.npmjs.com/package/multer)
   * Grab file as buffer
   * Delete file
   * Output sha-256 as option for filename
@@ -36,8 +36,12 @@ const _service = new service({
 
 //Express middleware
 app.post('/upload', _service.upload.single('file'), async (req, res) => {
-    if (!req.file) {
-        return res.status(400).send('No file uploaded.');
+    if (!req.file) { //upload as binary
+        try{
+            return await _service.uploadFileChunk(req, res)
+        } catch (error) {
+            return res.status(400).send('No file uploaded.');
+        }
     }
     try {
         const shaify = await _service.shaify(req.file)
@@ -67,3 +71,35 @@ shaify response to API
   sortsize: '446 KB'
 }
 ```
+
+## Upload files
+
+  * Upload as formdata (recomended)
+    ```js
+    const options = {
+    "method": "POST",
+    "hostname": "localhost",
+    "port": "3000",
+    "path": "/upload",
+    "headers": {
+        "Accept": "*/*",
+        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+        "content-type": "multipart/form-data; boundary=---011000010111000001101001"
+    }
+    };
+    ```
+  * Upload as binary (fallback), file-name in header as an option
+    ```js
+    const options = {
+    "method": "POST",
+    "hostname": "localhost",
+    "port": "3000",
+    "path": "/upload",
+    "headers": {
+        "Accept": "*/*",
+        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+        "file-name": "my_file.pdf",
+        "Content-Type": "application/octet-stream"
+    }
+    };
+    ```
