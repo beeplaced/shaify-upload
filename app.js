@@ -94,8 +94,8 @@ module.exports = class {
     uploadFileChunk = async (req, res) => {//upload as binary
         const body = [];
         req.on('data', chunk => {
-            for (let offset = 0; offset < chunk.byteLength; offset += fileLimit) {
-                const chunkEnd = Math.min(offset + fileLimit, chunk.byteLength);
+            for (let offset = 0; offset < chunk.byteLength; offset += this.fileLimit) {
+                const chunkEnd = Math.min(offset + this.fileLimit, chunk.byteLength);
                 const newChunk = chunk.slice(offset, chunkEnd);
                 body.push(newChunk);
             }
