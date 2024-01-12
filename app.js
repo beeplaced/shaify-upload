@@ -18,6 +18,8 @@ module.exports = class {
             mb = 8
         } = meta;
 
+        this.uploadPath = uploadPath
+
         const storage = multer.diskStorage({
             destination: (req, file, cb) => {
                 cb(null, uploadPath);
@@ -63,7 +65,7 @@ module.exports = class {
     readfile = async (requestInput) => {
         const { filename } = requestInput
         try {
-            const filePath = `./uploads/${filename}`
+            const filePath = `${this.uploadPath}/${filename}`
             return await new Promise((resolve, reject) => {
                 fs.readFile(filePath, function (err, res) {
                     if (err) {
@@ -78,7 +80,7 @@ module.exports = class {
     deletefile = async (requestInput) => {
         const { filename } = requestInput
         try {
-            const filePath = `./uploads/${filename}`
+            const filePath = `${this.uploadPath}/${filename}`
             return await new Promise((resolve, reject) => {
                 fs.unlink(filePath, function (err, res) {
                     if (err) reject(err)
