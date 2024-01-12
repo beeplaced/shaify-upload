@@ -28,10 +28,10 @@ $ npm i shaify-upload
 ```js
 //Init class
 const service = require('shaify-upload')
-const _service_ = new service({
+const _service = new service({
     uploadPath: './uploads',
-    allowedMimeTypes = ['application/pdf'],
-    mb = 8 //max filesize in mb (default 8)
+    allowedMimeTypes:['application/pdf'],
+    mb:8 //max filesize in mb (default 8)
     })
 
 //Express middleware
