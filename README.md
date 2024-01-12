@@ -61,7 +61,7 @@ shaify response to API
   filename: '1705058395505.pdf',
   path: 'uploads\\1705058395505.pdf',
   size: 456797,
-  buffer: <Buffer 25 ... 456747 more bytes>,
+  buffer: '<Buffer ... 456747 more bytes>',
   sha: '2b8bc6091bc03280d398304904104f274cb7eeab31fb1dfd94f37009c1edf8e7',
   deleted: true,
   sortsize: '446 KB'
