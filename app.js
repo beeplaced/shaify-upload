@@ -15,11 +15,13 @@ module.exports = class {
         const {
             uploadPath,
             allowedMimeTypes = ['application/pdf'],
-            mb = 8
+            mb = 8,
+            deletefile = true
         } = meta;
 
         this.fileLimit = mb * 1024 * 1024
         this.uploadPath = uploadPath
+        this.deletefile = deletefile
 
         const storage = multer.diskStorage({
             destination: (req, file, cb) => {
@@ -48,7 +50,7 @@ module.exports = class {
     shaify = async (filemeta) => {
         filemeta.buffer = await this.readfile(filemeta)
         filemeta.sha = await this.calculateSHA256(filemeta.buffer)
-        const res = await this.deletefile(filemeta)
+        if (this.deletefile) await this.deletefile(filemeta)
         filemeta.deleted = true
         filemeta.sortsize = filesize(filemeta.size)
         return filemeta

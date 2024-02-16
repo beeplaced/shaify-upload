@@ -17,7 +17,8 @@ $ npm i shaify-upload
 
 ## Features
 
-  * Upload files based on [multer](https://www.npmjs.com/package/multer)
+  * Upload files based on [multer](https://www.npmjs.com/package/multer) as formdata
+  * Upload as binary as fallback
   * Grab file as buffer
   * Delete file
   * Output sha-256 as option for filename
